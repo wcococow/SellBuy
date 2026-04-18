@@ -8,18 +8,19 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #0f1117;
+    --bg:      #0f1117;
     --surface: #1a1d27;
-    --border: #2a2d3e;
-    --accent: #6c63ff;
+    --border:  #2a2d3e;
+    --accent:  #6c63ff;
     --accent2: #00d4aa;
-    --text: #e2e8f0;
-    --muted: #8892a4;
-    --seller: #4f9cf9;
-    --buyer: #34d399;
-    --human: #fb923c;
-    --danger: #f87171;
+    --text:    #e2e8f0;
+    --muted:   #8892a4;
+    --seller:  #4f9cf9;
+    --buyer:   #34d399;
+    --human:   #fb923c;
+    --danger:  #f87171;
     --success: #4ade80;
+    --warn:    #facc15;
   }
 
   body {
@@ -32,7 +33,7 @@
     overflow: hidden;
   }
 
-  /* ── Top bar ── */
+  /* ── Topbar ── */
   .topbar {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
@@ -42,298 +43,261 @@
     gap: 16px;
     flex-shrink: 0;
   }
-  .topbar h1 { font-size: 1.1rem; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; }
+  .topbar h1 { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
   .topbar .spacer { flex: 1; }
   .user-pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--border);
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 0.85rem;
+    display: flex; align-items: center; gap: 8px;
+    background: var(--border); border-radius: 20px; padding: 6px 14px; font-size: 0.85rem;
   }
   .user-pill span { color: var(--muted); }
   #userName { font-weight: 600; color: var(--text); cursor: pointer; }
   #userName:hover { color: var(--accent); }
 
-  /* ── Main layout ── */
-  .layout {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-  }
+  /* ── Layout ── */
+  .layout { display: flex; flex: 1; overflow: hidden; }
 
   /* ── Sidebar ── */
   .sidebar {
-    width: 280px;
-    background: var(--surface);
+    width: 270px; background: var(--surface);
     border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
+    display: flex; flex-direction: column; flex-shrink: 0;
   }
   .sidebar-header {
-    padding: 14px 16px 10px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    padding: 14px 16px 10px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
   }
-  .sidebar-header h2 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+  .sidebar-header h2 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
   .btn-group { display: flex; gap: 6px; }
   .btn-sm {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 6px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.15s;
+    padding: 5px 10px; border: none; border-radius: 6px;
+    font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s;
   }
   .btn-sm:hover { opacity: 0.85; }
   .btn-sell { background: var(--seller); color: #000; }
   .btn-buy  { background: var(--buyer);  color: #000; }
 
-  .requests-list {
-    flex: 1;
-    overflow-y: auto;
-    padding: 8px;
+  .req-list { flex: 1; overflow-y: auto; padding: 8px; }
+  .req-card {
+    padding: 10px 12px; border-radius: 8px; margin-bottom: 6px;
+    cursor: pointer; border: 1px solid transparent; transition: all 0.15s;
   }
-  .req-item {
-    padding: 10px 12px;
-    border-radius: 8px;
-    margin-bottom: 6px;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: all 0.15s;
+  .req-card:hover { background: var(--border); }
+  .req-card.active { border-color: var(--accent); background: rgba(108,99,255,0.1); }
+  .rc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .rc-product { font-weight: 600; font-size: 0.88rem; }
+  .rc-meta { font-size: 0.74rem; color: var(--muted); }
+  .role-badge {
+    font-size: 0.68rem; font-weight: 700; padding: 2px 7px;
+    border-radius: 10px; text-transform: uppercase;
   }
-  .req-item:hover { background: var(--border); }
-  .req-item.active { border-color: var(--accent); background: rgba(108,99,255,0.1); }
-  .req-item .ri-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
-  .req-item .ri-product { font-weight: 600; font-size: 0.88rem; }
-  .req-item .ri-role {
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 10px;
-    text-transform: uppercase;
-  }
-  .role-seller { background: rgba(79,156,249,0.2); color: var(--seller); }
-  .role-buyer  { background: rgba(52,211,153,0.2); color: var(--buyer); }
-  .req-item .ri-meta { font-size: 0.75rem; color: var(--muted); }
+  .role-seller { background: rgba(79,156,249,0.2);  color: var(--seller); }
+  .role-buyer  { background: rgba(52,211,153,0.2);  color: var(--buyer); }
   .status-badge {
-    display: inline-block;
-    font-size: 0.68rem;
-    font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    display: inline-block; font-size: 0.67rem; font-weight: 700;
+    padding: 2px 7px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.4px;
   }
-  .s-CREATED     { background: rgba(139,148,158,0.2); color: #8b949e; }
-  .s-SEARCHING   { background: rgba(251,146,60,0.2);  color: var(--human); }
-  .s-NEGOTIATING { background: rgba(108,99,255,0.25); color: var(--accent); }
-  .s-DEAL_FOUND  { background: rgba(0,212,170,0.2);   color: var(--accent2); }
-  .s-CLOSED      { background: rgba(74,222,128,0.2);  color: var(--success); }
-  .s-NO_DEAL     { background: rgba(248,113,113,0.2); color: var(--danger); }
+  .s-CREATED        { background: rgba(139,148,158,0.2); color: #8b949e; }
+  .s-MATCHED        { background: rgba(0,212,170,0.15);  color: var(--accent2); }
+  .s-NO_MATCH       { background: rgba(248,113,113,0.15);color: var(--danger); }
+  .s-IN_PROGRESS    { background: rgba(108,99,255,0.2);  color: var(--accent); }
+  .s-NEGOTIATING    { background: rgba(108,99,255,0.2);  color: var(--accent); }
+  .s-AWAITING_DECISION { background: rgba(251,146,60,0.2); color: var(--human); }
+  .s-CLOSED         { background: rgba(74,222,128,0.2);  color: var(--success); }
+  .s-NO_DEAL        { background: rgba(248,113,113,0.2); color: var(--danger); }
+  .s-PENDING        { background: rgba(139,148,158,0.2); color: #8b949e; }
+  .empty-msg { text-align: center; color: var(--muted); font-size: 0.82rem; padding: 28px 16px; }
 
-  .empty-msg { text-align: center; color: var(--muted); font-size: 0.82rem; padding: 30px 16px; }
+  /* ── Main ── */
+  .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 
-  /* ── Create form panel ── */
-  .create-form {
-    display: none;
-    padding: 14px 16px;
-    border-top: 1px solid var(--border);
-    background: var(--bg);
+  /* ── Views ── */
+  .view { display: none; flex: 1; flex-direction: column; overflow: hidden; }
+  .view.active { display: flex; }
+
+  /* Welcome */
+  #welcomeView {
+    align-items: center; justify-content: center; gap: 10px; color: var(--muted);
   }
-  .create-form.show { display: block; }
-  .create-form h3 { font-size: 0.82rem; font-weight: 700; margin-bottom: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
-  .form-row { margin-bottom: 8px; }
-  .form-row label { display: block; font-size: 0.72rem; color: var(--muted); margin-bottom: 3px; }
+  #welcomeView .icon { font-size: 3rem; }
+  #welcomeView h2 { font-size: 1.1rem; color: var(--text); }
+  #welcomeView p { font-size: 0.85rem; }
+
+  /* Form */
+  #formView { overflow-y: auto; }
+  .form-panel {
+    max-width: 520px; margin: 32px auto; padding: 28px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  }
+  .form-panel h2 { font-size: 1rem; font-weight: 700; margin-bottom: 18px; }
+  .form-row { margin-bottom: 12px; }
+  .form-row label { display: block; font-size: 0.74rem; color: var(--muted); margin-bottom: 4px; }
   .form-row input {
-    width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text);
-    padding: 6px 9px;
-    font-size: 0.82rem;
-    outline: none;
-    transition: border-color 0.15s;
+    width: 100%; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text); padding: 8px 12px;
+    font-size: 0.85rem; outline: none; transition: border-color 0.15s;
   }
   .form-row input:focus { border-color: var(--accent); }
-  .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
-  .form-actions { display: flex; gap: 6px; margin-top: 10px; }
-  .btn-submit {
-    flex: 1;
-    padding: 8px;
-    border: none;
-    border-radius: 6px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.15s;
+  .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .form-row-2 .form-row { margin: 0; }
+  .form-actions { display: flex; gap: 8px; margin-top: 18px; }
+  .btn-primary {
+    flex: 1; padding: 10px; border: none; border-radius: 8px;
+    font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: opacity 0.15s;
   }
-  .btn-submit:hover { opacity: 0.85; }
-  .btn-cancel { background: var(--border); color: var(--text); }
-  .btn-create-seller { background: var(--seller); color: #000; }
-  .btn-create-buyer  { background: var(--buyer);  color: #000; }
-
-  /* ── Main panel ── */
-  .main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-cancel-form {
+    padding: 10px 18px; border: 1px solid var(--border); border-radius: 8px;
+    background: transparent; color: var(--muted); font-size: 0.88rem; cursor: pointer;
   }
+  .btn-cancel-form:hover { border-color: var(--text); color: var(--text); }
+  .btn-color-sell { background: var(--seller); color: #000; }
+  .btn-color-buy  { background: var(--buyer);  color: #000; }
 
-  .welcome {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  /* Detail view */
+  #detailView { overflow: hidden; }
+  .detail-header {
+    padding: 16px 24px 14px; border-bottom: 1px solid var(--border); flex-shrink: 0;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+  }
+  .dh-left h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+  .dh-left p  { font-size: 0.82rem; color: var(--muted); }
+  .dh-badges  { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .detail-body { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+  /* Matches panel */
+  #matchesPanel { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .matches-info {
+    padding: 12px 24px; font-size: 0.82rem; color: var(--muted);
+    border-bottom: 1px solid var(--border); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .matches-info strong { color: var(--text); }
+  .matches-grid { flex: 1; overflow-y: auto; padding: 16px 24px; display: flex; flex-direction: column; gap: 10px; }
+  .cp-card {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px; border-radius: 10px;
+    background: var(--surface); border: 2px solid var(--border);
+    cursor: pointer; transition: all 0.15s; user-select: none;
+  }
+  .cp-card:hover { border-color: var(--accent); }
+  .cp-card.selected { border-color: var(--accent); background: rgba(108,99,255,0.08); }
+  .cp-check {
+    width: 20px; height: 20px; border-radius: 5px; border: 2px solid var(--border);
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; transition: all 0.15s;
+  }
+  .cp-card.selected .cp-check { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .cp-info { flex: 1; }
+  .cp-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .cp-name { font-weight: 700; font-size: 0.92rem; }
+  .cp-intent { font-size: 0.82rem; color: var(--text); margin-bottom: 4px; }
+  .cp-desc { font-size: 0.79rem; color: var(--muted); line-height: 1.4; margin-bottom: 6px; }
+  .cp-meta { font-size: 0.78rem; color: var(--muted); display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .start-bar {
+    padding: 14px 24px; border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+    background: var(--bg);
+  }
+  .start-bar p { font-size: 0.82rem; color: var(--muted); }
+  .btn-start-deal {
+    padding: 10px 22px; border: none; border-radius: 8px;
+    background: var(--accent); color: #fff; font-size: 0.88rem; font-weight: 600;
+    cursor: pointer; transition: opacity 0.15s;
+  }
+  .btn-start-deal:hover { opacity: 0.85; }
+  .btn-start-deal:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  /* No-match state */
+  .no-match-msg {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; color: var(--muted); gap: 8px;
+  }
+  .no-match-msg .nm-icon { font-size: 2.5rem; }
+  .no-match-msg h3 { font-size: 1rem; color: var(--text); }
+  .no-match-msg p { font-size: 0.82rem; }
+
+  /* Sessions panel */
+  #sessionsPanel { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .session-tabs-bar {
+    display: flex; flex-shrink: 0; overflow-x: auto;
+    border-bottom: 1px solid var(--border); background: var(--surface);
+    padding: 0 16px;
+  }
+  .s-tab {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 16px; cursor: pointer; border-bottom: 2px solid transparent;
+    font-size: 0.83rem; white-space: nowrap; transition: all 0.15s;
     color: var(--muted);
-    gap: 10px;
   }
-  .welcome .icon { font-size: 3rem; }
-  .welcome h2 { font-size: 1.1rem; color: var(--text); }
-  .welcome p { font-size: 0.85rem; }
-
-  /* ── Stream view ── */
-  .stream-view {
-    display: none;
-    flex: 1;
-    flex-direction: column;
-    overflow: hidden;
+  .s-tab:hover { color: var(--text); }
+  .s-tab.active { border-bottom-color: var(--accent); color: var(--text); }
+  .s-tab .tab-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
   }
-  .stream-view.show { display: flex; }
+  .dot-pending    { background: var(--muted); }
+  .dot-negotiating{ background: var(--accent); animation: pulse 1.2s infinite; }
+  .dot-awaiting   { background: var(--human);  animation: pulse 1s infinite; }
+  .dot-closed     { background: var(--success); }
+  .dot-nodeal     { background: var(--danger); }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
 
-  .stream-header {
-    padding: 14px 20px 10px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-shrink: 0;
+  .tab-waiting-badge {
+    background: var(--human); color: #000; font-size: 0.65rem; font-weight: 700;
+    width: 16px; height: 16px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
   }
-  .stream-header .sh-info h3 { font-size: 1rem; font-weight: 700; }
-  .stream-header .sh-info p  { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
 
-  .btn-start {
-    padding: 8px 18px;
-    border: none;
-    border-radius: 8px;
-    background: var(--accent);
-    color: #fff;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.15s;
-  }
-  .btn-start:hover  { opacity: 0.85; }
-  .btn-start:disabled { opacity: 0.4; cursor: not-allowed; }
-
+  .session-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
   .stream-body {
-    flex: 1;
-    overflow-y: auto;
-    padding: 16px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    flex: 1; overflow-y: auto; padding: 16px 20px;
+    display: flex; flex-direction: column; gap: 10px;
   }
 
-  /* ── Cards in stream ── */
-  .status-line {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.8rem;
-    color: var(--muted);
-  }
+  /* Stream cards */
+  .status-line { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--muted); }
   .status-line::before { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
 
-  .match-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--accent2);
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 0.82rem;
-  }
-  .match-card .mc-name { font-weight: 700; font-size: 0.9rem; color: var(--accent2); margin-bottom: 4px; }
-  .match-card .mc-meta { color: var(--muted); display: flex; gap: 12px; flex-wrap: wrap; }
-
   .neg-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--accent);
-    padding: 4px 0;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.8rem; font-weight: 600; color: var(--accent); padding: 4px 0;
   }
   .neg-header::before { content: '──'; color: var(--border); }
   .neg-header::after  { content: '──'; color: var(--border); flex: 1; }
 
-  .bubble {
-    display: flex;
-    gap: 8px;
-    max-width: 85%;
-  }
+  .bubble { display: flex; gap: 8px; max-width: 85%; }
   .bubble.seller_robot { align-self: flex-start; }
   .bubble.buyer_robot  { align-self: flex-end; flex-direction: row-reverse; }
-  .bubble.human        { align-self: center; }
 
   .bubble-avatar {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.7rem;
-    flex-shrink: 0;
-    margin-top: 2px;
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; flex-shrink: 0; margin-top: 2px;
   }
   .seller_robot .bubble-avatar { background: rgba(79,156,249,0.2); color: var(--seller); }
   .buyer_robot  .bubble-avatar { background: rgba(52,211,153,0.2); color: var(--buyer); }
-  .human        .bubble-avatar { background: rgba(251,146,60,0.2); color: var(--human); }
 
   .bubble-role { font-size: 0.68rem; color: var(--muted); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
   .buyer_robot .bubble-role { text-align: right; }
 
   .bubble-text {
-    padding: 8px 12px;
-    border-radius: 10px;
-    font-size: 0.84rem;
-    line-height: 1.45;
+    padding: 8px 12px; border-radius: 10px; font-size: 0.84rem; line-height: 1.45;
   }
   .seller_robot .bubble-text { background: rgba(79,156,249,0.12); border: 1px solid rgba(79,156,249,0.2); border-top-left-radius: 2px; }
   .buyer_robot  .bubble-text { background: rgba(52,211,153,0.12); border: 1px solid rgba(52,211,153,0.2); border-top-right-radius: 2px; }
-  .human        .bubble-text { background: rgba(251,146,60,0.12);  border: 1px solid rgba(251,146,60,0.2); }
 
   .bubble-offer {
-    display: inline-block;
-    margin-top: 4px;
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    font-weight: 700;
+    display: inline-block; margin-top: 4px; padding: 2px 8px;
+    border-radius: 6px; font-size: 0.75rem; font-weight: 700;
   }
-  .seller_robot .bubble-offer { background: rgba(79,156,249,0.3);  color: var(--seller); }
-  .buyer_robot  .bubble-offer { background: rgba(52,211,153,0.3);  color: var(--buyer); }
+  .seller_robot .bubble-offer { background: rgba(79,156,249,0.3); color: var(--seller); }
+  .buyer_robot  .bubble-offer { background: rgba(52,211,153,0.3); color: var(--buyer); }
 
   .neg-end-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 8px 14px;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 8px 14px; font-size: 0.8rem;
+    display: flex; align-items: center; justify-content: space-between;
   }
   .ne-with { font-weight: 600; }
   .ne-result { font-weight: 700; }
@@ -342,135 +306,194 @@
   .result-ongoing  { color: var(--muted); }
 
   .summary-card {
-    background: linear-gradient(135deg, rgba(108,99,255,0.1), rgba(0,212,170,0.05));
-    border: 1px solid rgba(108,99,255,0.3);
-    border-radius: 10px;
-    padding: 14px 16px;
-    font-size: 0.85rem;
-    line-height: 1.5;
+    background: linear-gradient(135deg, rgba(108,99,255,0.08), rgba(0,212,170,0.04));
+    border: 1px solid rgba(108,99,255,0.25); border-radius: 10px;
+    padding: 14px 16px; font-size: 0.84rem; line-height: 1.5;
   }
-  .summary-card .sc-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 8px; font-weight: 700; }
+  .summary-card .sc-title {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--accent); margin-bottom: 8px; font-weight: 700;
+  }
 
   .result-banner {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    text-align: center;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px; text-align: center;
   }
   .result-banner.success { border-color: var(--success); background: rgba(74,222,128,0.05); }
   .result-banner.fail    { border-color: var(--danger);  background: rgba(248,113,113,0.05); }
   .result-banner .rb-status { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
   .result-banner .rb-detail { font-size: 0.82rem; color: var(--muted); }
 
-  /* ── Interrupt bar ── */
-  .interrupt-bar {
-    display: none;
-    flex-direction: column;
-    gap: 8px;
-    padding: 14px 20px;
-    background: var(--surface);
-    border-top: 1px solid rgba(251,146,60,0.4);
+  /* Edit mode in detail header */
+  .detail-header.edit-mode { flex-direction: column; align-items: stretch; }
+  .edit-header-form { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+  .edit-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .edit-field { display: flex; flex-direction: column; gap: 3px; }
+  .edit-field label { font-size: 0.72rem; color: var(--muted); }
+  .edit-field input {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text); padding: 6px 10px; font-size: 0.83rem; outline: none;
+    transition: border-color 0.15s;
+  }
+  .edit-field input:focus { border-color: var(--accent); }
+  .edit-actions { display: flex; gap: 8px; }
+  .btn-save-edit {
+    padding: 7px 18px; border: none; border-radius: 7px;
+    background: var(--accent); color: #fff; font-size: 0.83rem; font-weight: 600; cursor: pointer;
+  }
+  .btn-save-edit:hover { opacity: 0.85; }
+  .btn-cancel-edit {
+    padding: 7px 14px; border: 1px solid var(--border); border-radius: 7px;
+    background: transparent; color: var(--muted); font-size: 0.83rem; cursor: pointer;
+  }
+  .btn-cancel-edit:hover { border-color: var(--text); color: var(--text); }
+  .btn-edit {
+    padding: 5px 12px; border: 1px solid var(--border); border-radius: 6px;
+    background: transparent; color: var(--muted); font-size: 0.78rem; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-edit:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Analysis panel */
+  .analysis-panel {
+    margin: 0 24px 0; border: 1px solid rgba(108,99,255,0.3);
+    border-radius: 10px; background: rgba(108,99,255,0.05); overflow: hidden;
     flex-shrink: 0;
+  }
+  .ap-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 16px; border-bottom: 1px solid rgba(108,99,255,0.2);
+  }
+  .ap-title { font-size: 0.82rem; font-weight: 700; color: var(--accent); }
+  .ap-actions { display: flex; align-items: center; gap: 8px; }
+  .ap-body {
+    font-size: 0.83rem; line-height: 1.6; color: var(--text);
+    white-space: pre-wrap; display: none; padding: 14px 16px;
+  }
+  .ap-body.visible { display: block; }
+  .ap-dismiss {
+    background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1rem; line-height: 1;
+  }
+  .ap-dismiss:hover { color: var(--danger); }
+  .btn-analyze {
+    padding: 6px 14px; border: 1px solid var(--accent); border-radius: 16px;
+    background: rgba(108,99,255,0.1); color: var(--accent);
+    font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .btn-analyze:hover { background: rgba(108,99,255,0.2); }
+  .btn-analyze:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* Session info bar */
+  .session-info-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px; border-bottom: 1px solid var(--border);
+    background: var(--surface); flex-shrink: 0; gap: 16px;
+  }
+  .sib-left { display: flex; flex-direction: column; gap: 4px; }
+  .sib-name { font-size: 0.95rem; font-weight: 700; }
+  .sib-meta { font-size: 0.78rem; color: var(--muted); }
+  .sib-offer { font-size: 0.82rem; font-weight: 600; color: var(--accent2); min-height: 1em; }
+
+  .btn-start-session {
+    padding: 9px 20px; border: none; border-radius: 8px;
+    background: var(--accent); color: #fff;
+    font-size: 0.85rem; font-weight: 600; cursor: pointer;
+    transition: opacity 0.15s; white-space: nowrap; flex-shrink: 0;
+  }
+  .btn-start-session:hover { opacity: 0.85; }
+  .btn-start-session:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn-start-session.running {
+    background: var(--border); color: var(--muted); cursor: default; opacity: 1;
+  }
+
+  /* Dialog panel */
+  .dialog-panel {
+    flex: 1; display: flex; flex-direction: column; overflow: hidden;
+    border-top: 1px solid var(--border);
+  }
+  .dialog-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 20px; flex-shrink: 0;
+    background: rgba(108,99,255,0.05); border-bottom: 1px solid var(--border);
+  }
+  .dialog-status-text { font-size: 0.82rem; color: var(--muted); }
+
+  .listen-btn {
+    display: flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border: 1px solid var(--border);
+    border-radius: 16px; background: transparent;
+    color: var(--muted); font-size: 0.8rem; cursor: pointer; transition: all 0.15s;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .listen-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+  .listen-btn.active {
+    background: rgba(0,212,170,0.1); border-color: var(--accent2);
+    color: var(--accent2); font-weight: 600;
+  }
+
+  /* Interrupt bar */
+  .interrupt-bar {
+    display: none; flex-direction: column; gap: 8px;
+    padding: 14px 20px; background: var(--surface);
+    border-top: 1px solid rgba(251,146,60,0.4); flex-shrink: 0;
   }
   .interrupt-bar.show { display: flex; }
   .ib-prompt { font-size: 0.85rem; font-weight: 600; color: var(--human); }
   .ib-options { display: flex; flex-wrap: wrap; gap: 6px; }
   .ib-option {
-    padding: 7px 14px;
-    border: 1px solid rgba(251,146,60,0.4);
-    border-radius: 8px;
-    background: rgba(251,146,60,0.08);
-    color: var(--text);
-    font-size: 0.82rem;
-    cursor: pointer;
-    transition: all 0.15s;
+    padding: 7px 14px; border: 1px solid rgba(251,146,60,0.35);
+    border-radius: 8px; background: rgba(251,146,60,0.07);
+    color: var(--text); font-size: 0.82rem; cursor: pointer; transition: all 0.15s;
   }
-  .ib-option:hover { background: rgba(251,146,60,0.2); border-color: var(--human); color: var(--human); }
+  .ib-option:hover { background: rgba(251,146,60,0.18); border-color: var(--human); color: var(--human); }
   .ib-manual { display: flex; gap: 8px; }
   .ib-input {
-    flex: 1;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    padding: 7px 12px;
-    font-size: 0.82rem;
-    outline: none;
+    flex: 1; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text); padding: 7px 12px;
+    font-size: 0.82rem; outline: none;
   }
   .ib-input:focus { border-color: var(--human); }
   .ib-send {
-    padding: 7px 16px;
-    border: none;
-    border-radius: 8px;
-    background: var(--human);
-    color: #000;
-    font-size: 0.82rem;
-    font-weight: 600;
-    cursor: pointer;
+    padding: 7px 16px; border: none; border-radius: 8px;
+    background: var(--human); color: #000; font-size: 0.82rem; font-weight: 600; cursor: pointer;
   }
   .ib-send:hover { opacity: 0.85; }
 
-  ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
-  /* ── Login overlay ── */
+  /* Login overlay */
   #loginOverlay {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.85);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
+    position: fixed; inset: 0; background: rgba(0,0,0,0.88);
+    display: flex; align-items: center; justify-content: center; z-index: 1000;
   }
   .login-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 32px 28px;
-    width: 320px;
-    text-align: center;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 36px 32px; width: 340px; text-align: center;
   }
-  .login-box h2 { font-size: 1.3rem; margin-bottom: 6px; color: var(--accent); }
-  .login-box p  { font-size: 0.82rem; color: var(--muted); margin-bottom: 20px; }
+  .login-box h2 { font-size: 1.4rem; margin-bottom: 6px; color: var(--accent); }
+  .login-box p  { font-size: 0.83rem; color: var(--muted); margin-bottom: 22px; }
   .login-box input {
-    width: 100%;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    padding: 10px 14px;
-    font-size: 0.9rem;
-    outline: none;
-    margin-bottom: 14px;
-    text-align: center;
+    width: 100%; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text); padding: 10px 14px;
+    font-size: 0.9rem; outline: none; margin-bottom: 14px; text-align: center;
   }
   .login-box input:focus { border-color: var(--accent); }
   .login-box button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 8px;
-    background: var(--accent);
-    color: #fff;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
+    width: 100%; padding: 10px; border: none; border-radius: 8px;
+    background: var(--accent); color: #fff; font-size: 0.9rem; font-weight: 600; cursor: pointer;
   }
   .login-box button:hover { opacity: 0.85; }
 
   .spinner {
-    width: 14px; height: 14px;
-    border: 2px solid transparent;
-    border-top-color: currentColor;
-    border-radius: 50%;
-    display: inline-block;
-    animation: spin 0.7s linear infinite;
-    vertical-align: middle;
-    margin-right: 6px;
+    width: 13px; height: 13px; border: 2px solid transparent;
+    border-top-color: currentColor; border-radius: 50%;
+    display: inline-block; animation: spin 0.7s linear infinite;
+    vertical-align: middle; margin-right: 5px;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 </style>
 </head>
 <body>
@@ -485,7 +508,7 @@
   </div>
 </div>
 
-<!-- Top bar -->
+<!-- Topbar -->
 <div class="topbar">
   <h1>⚡ SellBuy Portal</h1>
   <div class="spacer"></div>
@@ -501,91 +524,193 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <div class="sidebar-header">
-      <h2>My Requests</h2>
+      <h2>My Records</h2>
       <div class="btn-group">
         <button class="btn-sm btn-sell" onclick="showForm('seller')">+ Sell</button>
         <button class="btn-sm btn-buy"  onclick="showForm('buyer')">+ Buy</button>
       </div>
     </div>
-
-    <!-- Inline create form -->
-    <div class="create-form" id="createForm">
-      <h3 id="formTitle">New Request</h3>
-      <input type="hidden" id="formRole" value="seller">
-
-      <div class="form-row">
-        <label>Product</label>
-        <input id="fProduct" type="text" placeholder="e.g. iPhone 15">
-      </div>
-      <div class="form-row-2">
-        <div class="form-row" style="margin:0">
-          <label>Min Price ($)</label>
-          <input id="fMin" type="number" placeholder="600">
-        </div>
-        <div class="form-row" style="margin:0">
-          <label>Max Price ($)</label>
-          <input id="fMax" type="number" placeholder="900">
-        </div>
-      </div>
-      <div class="form-row">
-        <label>City</label>
-        <input id="fCity" type="text" placeholder="San Francisco">
-      </div>
-      <div class="form-row-2">
-        <div class="form-row" style="margin:0">
-          <label>Latitude</label>
-          <input id="fLat" type="number" step="any" placeholder="37.77">
-        </div>
-        <div class="form-row" style="margin:0">
-          <label>Longitude</label>
-          <input id="fLon" type="number" step="any" placeholder="-122.41">
-        </div>
-      </div>
-      <div class="form-row">
-        <label>Search Radius (km)</label>
-        <input id="fRadius" type="number" value="15" placeholder="15">
-      </div>
-      <div class="form-actions">
-        <button class="btn-submit btn-cancel" onclick="hideForm()">Cancel</button>
-        <button class="btn-submit btn-create-seller" id="submitBtn" onclick="submitRequest()">Create</button>
-      </div>
-    </div>
-
-    <div class="requests-list" id="requestsList">
-      <div class="empty-msg">No requests yet.<br>Click + Sell or + Buy to start.</div>
+    <div class="req-list" id="reqList">
+      <div class="empty-msg">No records yet.<br>Click + Sell or + Buy to start.</div>
     </div>
   </div>
 
-  <!-- Main panel -->
+  <!-- Main -->
   <div class="main">
 
-    <!-- Welcome state -->
-    <div class="welcome" id="welcomeView">
+    <!-- Welcome -->
+    <div class="view active" id="welcomeView">
       <div class="icon">🤝</div>
-      <h2>Select a request to view details</h2>
-      <p>Create a sell or buy request, then click "Search Deal" to start negotiations.</p>
+      <h2>Welcome to SellBuy</h2>
+      <p>Click <strong>+ Sell</strong> or <strong>+ Buy</strong> to post a request and find matching deals.</p>
     </div>
 
-    <!-- Stream view -->
-    <div class="stream-view" id="streamView">
-      <div class="stream-header">
-        <div class="sh-info">
-          <h3 id="svTitle">—</h3>
-          <p id="svMeta">—</p>
+    <!-- Create form -->
+    <div class="view" id="formView">
+      <div class="form-panel">
+        <h2 id="formTitle">New Sell Request</h2>
+        <input type="hidden" id="formRole" value="seller">
+
+        <div class="form-row">
+          <label>Product Name</label>
+          <input id="fProduct" type="text" placeholder="e.g. iPhone 15">
         </div>
-        <button class="btn-start" id="startBtn" onclick="startAgent()">🔍 Search Deal</button>
+        <div class="form-row-2">
+          <div class="form-row">
+            <label>Min Price ($)</label>
+            <input id="fMin" type="number" placeholder="600">
+          </div>
+          <div class="form-row">
+            <label>Max Price ($)</label>
+            <input id="fMax" type="number" placeholder="900">
+          </div>
+        </div>
+        <div class="form-row">
+          <label>City</label>
+          <input id="fCity" type="text" placeholder="San Francisco">
+        </div>
+        <div class="form-row-2">
+          <div class="form-row">
+            <label>Latitude</label>
+            <input id="fLat" type="number" step="any" placeholder="37.77">
+          </div>
+          <div class="form-row">
+            <label>Longitude</label>
+            <input id="fLon" type="number" step="any" placeholder="-122.41">
+          </div>
+        </div>
+        <div class="form-row">
+          <label>Search Radius (km)</label>
+          <input id="fRadius" type="number" value="15" placeholder="15">
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-cancel-form" onclick="showView('welcomeView')">Cancel</button>
+          <button class="btn-primary btn-color-sell" id="searchBtn" onclick="submitSearch()">
+            🔍 Search Deal
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Request detail -->
+    <div class="view" id="detailView">
+
+      <!-- Header -->
+      <div class="detail-header" id="detailHeader">
+        <!-- View mode -->
+        <div id="dhView" style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;width:100%">
+          <div class="dh-left">
+            <h3 id="dhTitle">—</h3>
+            <p id="dhMeta">—</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap" id="dhBadges">
+            <button class="btn-edit" onclick="showEditMode()">✏ Edit</button>
+          </div>
+        </div>
+        <!-- Edit mode (hidden) -->
+        <div id="dhEdit" style="display:none;width:100%">
+          <div class="edit-header-form">
+            <div class="edit-row">
+              <div class="edit-field" style="grid-column:span 2">
+                <label>Product Name</label>
+                <input id="eProduct" type="text">
+              </div>
+            </div>
+            <div class="edit-row">
+              <div class="edit-field"><label>Min Price ($)</label><input id="eMin" type="number"></div>
+              <div class="edit-field"><label>Max Price ($)</label><input id="eMax" type="number"></div>
+            </div>
+            <div class="edit-row">
+              <div class="edit-field" style="grid-column:span 2">
+                <label>City</label><input id="eCity" type="text">
+              </div>
+            </div>
+            <div class="edit-row">
+              <div class="edit-field"><label>Latitude</label><input id="eLat" type="number" step="any"></div>
+              <div class="edit-field"><label>Longitude</label><input id="eLon" type="number" step="any"></div>
+            </div>
+            <div class="edit-row">
+              <div class="edit-field"><label>Search Radius (km)</label><input id="eRadius" type="number"></div>
+            </div>
+            <div class="edit-actions">
+              <button class="btn-cancel-edit" onclick="cancelEditMode()">Cancel</button>
+              <button class="btn-save-edit" id="saveEditBtn" onclick="saveEdit()">💾 Save & Re-search</button>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="stream-body" id="streamBody"></div>
+      <!-- Body switches between matches panel and sessions panel -->
+      <div class="detail-body">
 
-      <!-- Interrupt bar -->
-      <div class="interrupt-bar" id="interruptBar">
-        <div class="ib-prompt" id="ibPrompt">Choose your counterpart:</div>
-        <div class="ib-options" id="ibOptions"></div>
-        <div class="ib-manual">
-          <input class="ib-input" id="ibInput" type="text" placeholder="Or type your choice and press Enter…">
-          <button class="ib-send" onclick="sendResume()">Send</button>
+        <!-- Matches panel -->
+        <div id="matchesPanel">
+          <div class="matches-info">
+            <span id="matchesInfo">Searching…</span>
+            <button class="btn-analyze" id="analyzeBtn" style="display:none" onclick="analyzeDeals()">
+              🔍 Compare &amp; Analyze Deals
+            </button>
+          </div>
+          <div class="matches-grid" id="matchesGrid"></div>
+          <!-- Analysis panel (shown after analyze click) -->
+          <div class="analysis-panel" id="analysisPanel" style="display:none">
+            <div class="ap-header">
+              <span class="ap-title">🧠 Deal Analysis</span>
+              <div class="ap-actions">
+                <button class="listen-btn" id="listenAnalysisBtn" onclick="toggleAnalysisListen()">👂 Listen</button>
+                <button class="ap-dismiss" onclick="dismissAnalysis()" title="Dismiss">✕</button>
+              </div>
+            </div>
+            <div class="ap-body" id="analysisBody"></div>
+          </div>
+          <div class="start-bar">
+            <p id="startBarHint">Select deals to negotiate with your agents.</p>
+            <button class="btn-start-deal" id="startDealBtn" disabled onclick="startDeal()">
+              Start Deal with My Agents
+            </button>
+          </div>
         </div>
+
+        <!-- Sessions panel (hidden until sessions exist) -->
+        <div id="sessionsPanel" style="display:none">
+          <div class="session-tabs-bar" id="sessionTabsBar"></div>
+          <div class="session-content">
+
+            <!-- Counterpart info + Start Deal button (always visible) -->
+            <div class="session-info-bar" id="sessionInfoBar">
+              <div class="sib-left">
+                <div class="sib-name" id="sibName">—</div>
+                <div class="sib-meta" id="sibMeta"></div>
+                <div class="sib-offer" id="sibOffer"></div>
+              </div>
+              <button class="btn-start-session" id="startSessionBtn" onclick="startSessionDeal()">
+                ▶ Start Deal
+              </button>
+            </div>
+
+            <!-- Dialog panel: appears after deal is started -->
+            <div class="dialog-panel" id="dialogPanel" style="display:none">
+              <div class="dialog-header">
+                <span class="dialog-status-text" id="dialogStatusText">Negotiation starting…</span>
+                <button class="listen-btn" id="listenBtn" onclick="toggleListen()">👂 Listen to Dialog</button>
+              </div>
+              <!-- Chat bubbles (visible when listening) -->
+              <div class="stream-body" id="streamBody" style="display:none"></div>
+              <!-- Decision bar (always visible when agent needs input) -->
+              <div class="interrupt-bar" id="interruptBar">
+                <div class="ib-prompt" id="ibPrompt">Choose your action:</div>
+                <div class="ib-options" id="ibOptions"></div>
+                <div class="ib-manual">
+                  <input class="ib-input" id="ibInput" type="text" placeholder="Or type and press Enter…">
+                  <button class="ib-send" onclick="sendResume()">Send</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -593,340 +718,858 @@
 </div>
 
 <script>
-  let userId   = null;
-  let userName = null;
-  let requests = {};
-  let activeId = null;
-  let ws       = null;
+// ── State ──────────────────────────────────────────────────────────────────────
+let userId   = null;
+let userName = null;
+let requests = {};         // request_id → request obj
+let sessions = {};         // session_id → session obj
+let sessionMsgs = {};      // session_id → [msg, …]
+let sessionInterrupt = {}; // session_id → {prompt, options} | null
+let wsMap = {};            // session_id → WebSocket
+let activeReqId = null;
+let activeSessionId = null;
+let selectedCPs = new Set();
+let listeningTo = new Set();   // session_ids the user has tuned in to
+let currentAudio = null;       // currently playing HTMLAudioElement
 
-  // ── Login ──────────────────────────────────────────────────────────────────
-  function login() {
-    const name = document.getElementById('loginName').value.trim();
-    if (!name) return;
-    userName = name;
-    userId   = localStorage.getItem('sb_user_id') || crypto.randomUUID();
-    localStorage.setItem('sb_user_id', userId);
-    localStorage.setItem('sb_user_name', userName);
+// ── Util ───────────────────────────────────────────────────────────────────────
+function esc(s) {
+  return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/\n/g,'<br>');
+}
+
+function showView(id) {
+  document.querySelectorAll('.main .view').forEach(v => v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// ── Login ──────────────────────────────────────────────────────────────────────
+function login() {
+  const name = document.getElementById('loginName').value.trim();
+  if (!name) return;
+  userName = name;
+  userId   = localStorage.getItem('sb_uid') || crypto.randomUUID();
+  localStorage.setItem('sb_uid',  userId);
+  localStorage.setItem('sb_name', userName);
+  document.getElementById('userName').textContent = userName;
+  document.getElementById('loginOverlay').style.display = 'none';
+  loadRequests();
+}
+
+document.getElementById('loginName').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+
+window.addEventListener('DOMContentLoaded', () => {
+  const n = localStorage.getItem('sb_name');
+  const u = localStorage.getItem('sb_uid');
+  if (n && u) {
+    userName = n; userId = u;
     document.getElementById('userName').textContent = userName;
     document.getElementById('loginOverlay').style.display = 'none';
     loadRequests();
   }
+});
 
-  document.getElementById('loginName').addEventListener('keydown', e => {
-    if (e.key === 'Enter') login();
-  });
+document.getElementById('userName').addEventListener('click', () => {
+  localStorage.removeItem('sb_name');
+  localStorage.removeItem('sb_uid');
+  location.reload();
+});
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const savedName = localStorage.getItem('sb_user_name');
-    const savedId   = localStorage.getItem('sb_user_id');
-    if (savedName && savedId) {
-      userName = savedName;
-      userId   = savedId;
-      document.getElementById('userName').textContent = userName;
-      document.getElementById('loginOverlay').style.display = 'none';
-      loadRequests();
-    }
-  });
+// ── Data loading ───────────────────────────────────────────────────────────────
+async function loadRequests() {
+  try {
+    const list = await fetch(`/api/requests?user_id=${encodeURIComponent(userId)}`).then(r => r.json());
+    list.forEach(r => { requests[r.request_id] = r; });
+    renderSidebar();
+  } catch (e) { console.error(e); }
+}
 
-  document.getElementById('userName').addEventListener('click', () => {
-    localStorage.removeItem('sb_user_name');
-    localStorage.removeItem('sb_user_id');
-    location.reload();
-  });
+// ── Sidebar ────────────────────────────────────────────────────────────────────
+function renderSidebar() {
+  const el  = document.getElementById('reqList');
+  const all = Object.values(requests).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  if (!all.length) {
+    el.innerHTML = '<div class="empty-msg">No records yet.<br>Click + Sell or + Buy to start.</div>';
+    return;
+  }
+  el.innerHTML = all.map(r => `
+    <div class="req-card ${r.request_id === activeReqId ? 'active' : ''}"
+         onclick="selectRequest('${r.request_id}')">
+      <div class="rc-top">
+        <span class="rc-product">${esc(r.product_name)}</span>
+        <span class="role-badge role-${r.role}">${r.role}</span>
+      </div>
+      <div class="rc-meta">
+        $${r.min_price}–$${r.max_price} · ${esc(r.city)}
+        &nbsp;<span class="status-badge s-${r.status}">${r.status.replace(/_/g,' ')}</span>
+      </div>
+    </div>`).join('');
+}
 
-  // ── Load requests ──────────────────────────────────────────────────────────
-  async function loadRequests() {
-    try {
-      const res  = await fetch(`/api/requests?user_id=${encodeURIComponent(userId)}`);
-      const list = await res.json();
-      list.forEach(r => { requests[r.request_id] = r; });
-      renderSidebar();
-    } catch (e) { console.error('loadRequests', e); }
+// ── Form ───────────────────────────────────────────────────────────────────────
+function showForm(role) {
+  document.getElementById('formRole').value = role;
+  document.getElementById('formTitle').textContent = role === 'seller' ? 'New Sell Request' : 'New Buy Request';
+  const btn = document.getElementById('searchBtn');
+  btn.className = `btn-primary btn-color-${role}`;
+  showView('formView');
+}
+
+async function submitSearch() {
+  const role    = document.getElementById('formRole').value;
+  const product = document.getElementById('fProduct').value.trim();
+  const min     = parseFloat(document.getElementById('fMin').value);
+  const max     = parseFloat(document.getElementById('fMax').value);
+  const city    = document.getElementById('fCity').value.trim();
+  const lat     = parseFloat(document.getElementById('fLat').value);
+  const lon     = parseFloat(document.getElementById('fLon').value);
+  const radius  = parseFloat(document.getElementById('fRadius').value) || 15;
+
+  if (!product || isNaN(min) || isNaN(max) || !city || isNaN(lat) || isNaN(lon)) {
+    alert('Please fill in all fields.'); return;
   }
 
-  // ── Sidebar render ─────────────────────────────────────────────────────────
-  function renderSidebar() {
-    const el  = document.getElementById('requestsList');
-    const all = Object.values(requests);
-    if (!all.length) {
-      el.innerHTML = '<div class="empty-msg">No requests yet.<br>Click + Sell or + Buy to start.</div>';
+  const btn = document.getElementById('searchBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Searching…';
+
+  try {
+    const req = await fetch('/api/requests', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: userId, user_name: userName, role,
+        product_name: product, min_price: min, max_price: max,
+        city, lat, lon, with_in_kms: radius })
+    }).then(r => r.json());
+
+    requests[req.request_id] = req;
+    // clear form
+    ['fProduct','fMin','fMax','fCity','fLat','fLon'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('fRadius').value = '15';
+
+    renderSidebar();
+    selectRequest(req.request_id);
+  } catch (e) {
+    alert('Error: ' + e);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '🔍 Search Deal';
+  }
+}
+
+// ── Request selection ──────────────────────────────────────────────────────────
+function selectRequest(reqId) {
+  activeReqId = reqId;
+  activeSessionId = null;
+  selectedCPs.clear();
+  renderSidebar();
+  cancelEditMode(); // ensure edit mode is off
+
+  const req = requests[reqId];
+  showView('detailView');
+  _renderDetailHeader(req);
+
+  if (req.session_ids && req.session_ids.length > 0) {
+    showSessionsPanel(req);
+  } else {
+    showMatchesPanel(req);
+  }
+}
+
+function _renderDetailHeader(req) {
+  document.getElementById('dhTitle').textContent =
+    `${req.product_name} — ${req.role === 'seller' ? 'Selling' : 'Buying'}`;
+  document.getElementById('dhMeta').textContent =
+    `$${req.min_price}–$${req.max_price} · ${req.city} · ${req.with_in_kms} km radius`;
+  // Re-inject badges keeping the Edit button
+  document.getElementById('dhBadges').innerHTML =
+    `<span class="role-badge role-${req.role}">${req.role}</span>
+     <span class="status-badge s-${req.status}">${req.status.replace(/_/g,' ')}</span>
+     <button class="btn-edit" onclick="showEditMode()">✏ Edit</button>`;
+}
+
+// ── Edit mode ─────────────────────────────────────────────────────────────────
+function showEditMode() {
+  const req = requests[activeReqId];
+  if (!req) return;
+  document.getElementById('eProduct').value = req.product_name;
+  document.getElementById('eMin').value     = req.min_price;
+  document.getElementById('eMax').value     = req.max_price;
+  document.getElementById('eCity').value    = req.city;
+  document.getElementById('eLat').value     = req.lat;
+  document.getElementById('eLon').value     = req.lon;
+  document.getElementById('eRadius').value  = req.with_in_kms;
+  document.getElementById('dhView').style.display = 'none';
+  document.getElementById('dhEdit').style.display = '';
+  document.getElementById('detailHeader').classList.add('edit-mode');
+}
+
+function cancelEditMode() {
+  document.getElementById('dhView').style.display = 'flex';
+  document.getElementById('dhEdit').style.display = 'none';
+  document.getElementById('detailHeader').classList.remove('edit-mode');
+}
+
+async function saveEdit() {
+  const product = document.getElementById('eProduct').value.trim();
+  const min     = parseFloat(document.getElementById('eMin').value);
+  const max     = parseFloat(document.getElementById('eMax').value);
+  const city    = document.getElementById('eCity').value.trim();
+  const lat     = parseFloat(document.getElementById('eLat').value);
+  const lon     = parseFloat(document.getElementById('eLon').value);
+  const radius  = parseFloat(document.getElementById('eRadius').value) || 15;
+  if (!product || isNaN(min) || isNaN(max) || !city || isNaN(lat) || isNaN(lon)) {
+    alert('Please fill in all fields.'); return;
+  }
+
+  const btn = document.getElementById('saveEditBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Saving…';
+
+  try {
+    const updated = await fetch(`/api/requests/${activeReqId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ product_name: product, min_price: min, max_price: max,
+                             city, lat, lon, with_in_kms: radius })
+    }).then(r => r.json());
+
+    if (updated.error) throw new Error(updated.error);
+    requests[activeReqId] = { ...requests[activeReqId], ...updated };
+    cancelEditMode();
+    _renderDetailHeader(requests[activeReqId]);
+    renderSidebar();
+    // Dismiss any old analysis and re-show matches
+    dismissAnalysis();
+    showMatchesPanel(requests[activeReqId]);
+  } catch (e) {
+    alert('Save failed: ' + e);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '💾 Save & Re-search';
+  }
+}
+
+// ── Matches panel ──────────────────────────────────────────────────────────────
+function showMatchesPanel(req) {
+  document.getElementById('matchesPanel').style.display = 'flex';
+  document.getElementById('sessionsPanel').style.display = 'none';
+  document.getElementById('analysisPanel').style.display = 'none';
+
+  const matches = req.matches || [];
+  const infoEl  = document.getElementById('matchesInfo');
+  const gridEl  = document.getElementById('matchesGrid');
+  const analyzeBtn = document.getElementById('analyzeBtn');
+
+  if (!matches.length) {
+    analyzeBtn.style.display = 'none';
+    infoEl.innerHTML = '<strong>No matching deals found</strong> in your area.';
+    gridEl.innerHTML = `
+      <div class="no-match-msg">
+        <div class="nm-icon">🔍</div>
+        <h3>No counterparts found</h3>
+        <p>No one is looking for ${esc(req.product_name)} within ${req.with_in_kms} km of ${esc(req.city)}.</p>
+      </div>`;
+    document.getElementById('startDealBtn').disabled = true;
+    document.getElementById('startBarHint').textContent = 'No deals available to start.';
+    return;
+  }
+
+  infoEl.innerHTML = `Found <strong>${matches.length}</strong> matching ${matches.length === 1 ? 'deal' : 'deals'} — select the ones you want to negotiate.`;
+  analyzeBtn.style.display = '';
+  gridEl.innerHTML = matches.map(m => {
+    const isBuyer = m.counterpart_role === 'buyer';
+    const intent  = isBuyer ? 'Wants to buy' : 'Selling';
+    const label   = isBuyer ? 'Budget' : 'Asking';
+    const desc    = isBuyer
+      ? `Looking to purchase <strong>${esc(m.product_name)}</strong> in good condition within ${m.with_in_kms ?? '?'} km of ${esc(m.city)}.`
+      : `Offering <strong>${esc(m.product_name)}</strong> for sale, within ${m.with_in_kms ?? '?'} km of ${esc(m.city)}.`;
+    return `
+    <div class="cp-card" id="cp-${m.counterpart_id}" onclick="toggleCP('${m.counterpart_id}')">
+      <div class="cp-check">✓</div>
+      <div class="cp-info">
+        <div class="cp-header">
+          <span class="cp-name">${esc(m.name)}</span>
+          <span class="role-badge role-${m.counterpart_role}">${m.counterpart_role}</span>
+        </div>
+        <div class="cp-intent">${intent}: <strong>${esc(m.product_name)}</strong></div>
+        <div class="cp-desc">${desc}</div>
+        <div class="cp-meta">
+          <span>📍 ${esc(m.city)}</span>
+          <span>📏 ${m.distance_km} km away</span>
+          <span>💰 ${label}: $${m.min_price}–$${m.max_price}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  updateStartBtn();
+}
+
+function toggleCP(cpId) {
+  if (selectedCPs.has(cpId)) selectedCPs.delete(cpId);
+  else selectedCPs.add(cpId);
+
+  document.querySelectorAll('.cp-card').forEach(card => {
+    const id = card.id.replace('cp-', '');
+    card.classList.toggle('selected', selectedCPs.has(id));
+  });
+  updateStartBtn();
+}
+
+// ── TTS helper ────────────────────────────────────────────────────────────────
+async function _playTTS(text, contentType, btn, onEnd, role) {
+  // Stop any currently playing audio
+  if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+
+  btn.disabled = true;
+  const originalLabel = btn.textContent;
+  btn.innerHTML = '<span class="spinner"></span>Generating…';
+
+  try {
+    const userRole = role || requests[activeReqId]?.role || 'buyer';
+    const resp = await fetch('/api/tts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, content_type: contentType, role: userRole }),
+    });
+    if (!resp.ok) throw new Error('TTS request failed');
+
+    const blob = await resp.blob();
+    const url  = URL.createObjectURL(blob);
+    currentAudio = new Audio(url);
+
+    currentAudio.addEventListener('ended', () => {
+      URL.revokeObjectURL(url);
+      currentAudio = null;
+      btn.textContent = originalLabel;
+      btn.classList.remove('active');
+      if (onEnd) onEnd();
+    });
+
+    currentAudio.play();
+    btn.textContent = '🔇 Stop';
+    btn.classList.add('active');
+    btn.disabled = false;
+
+    // Clicking again stops playback
+    btn.onclick = () => {
+      if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+      btn.textContent = originalLabel;
+      btn.classList.remove('active');
+      btn.onclick = null; // reset handled elsewhere
+    };
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = originalLabel;
+    alert('TTS error: ' + e);
+  }
+}
+
+// ── Analyze deals ─────────────────────────────────────────────────────────────
+async function analyzeDeals() {
+  const btn = document.getElementById('analyzeBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Analyzing…';
+
+  try {
+    const result = await fetch(`/api/requests/${activeReqId}/analyze`, {
+      method: 'POST'
+    }).then(r => r.json());
+
+    if (result.error) throw new Error(result.error);
+
+    document.getElementById('analysisBody').textContent = result.analysis;
+    document.getElementById('analysisBody').classList.remove('visible');
+    document.getElementById('listenAnalysisBtn').textContent = '👂 Listen';
+    document.getElementById('listenAnalysisBtn').classList.remove('active');
+    document.getElementById('analysisPanel').style.display = '';
+    document.getElementById('analysisPanel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  } catch (e) {
+    alert('Analysis failed: ' + e);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '🔍 Compare &amp; Analyze Deals';
+  }
+}
+
+async function toggleAnalysisListen() {
+  const body = document.getElementById('analysisBody');
+  const btn  = document.getElementById('listenAnalysisBtn');
+
+  // If audio playing → stop
+  if (currentAudio && !currentAudio.paused) {
+    currentAudio.pause(); currentAudio = null;
+    btn.textContent = '👂 Listen';
+    btn.classList.remove('active');
+    return;
+  }
+
+  // Show text
+  body.classList.add('visible');
+
+  const text = body.textContent.trim();
+  if (!text) return;
+
+  btn.onclick = toggleAnalysisListen; // restore after _playTTS overrides it
+  await _playTTS(text, 'analysis', btn, () => { btn.onclick = toggleAnalysisListen; });
+}
+
+function dismissAnalysis() {
+  document.getElementById('analysisPanel').style.display = 'none';
+  document.getElementById('analyzeBtn').innerHTML = '🔍 Compare &amp; Analyze Deals';
+  document.getElementById('analyzeBtn').disabled = false;
+}
+
+function updateStartBtn() {
+  const btn  = document.getElementById('startDealBtn');
+  const hint = document.getElementById('startBarHint');
+  const n    = selectedCPs.size;
+  btn.disabled = n === 0;
+  btn.textContent = n > 0
+    ? `Start Deal with ${n} Agent${n > 1 ? 's' : ''}`
+    : 'Start Deal with My Agents';
+  hint.textContent = n > 0
+    ? `${n} deal${n > 1 ? 's' : ''} selected — agents will negotiate in parallel.`
+    : 'Select deals to negotiate with your agents.';
+}
+
+// ── Start sessions ─────────────────────────────────────────────────────────────
+async function startDeal() {
+  if (!selectedCPs.size) return;
+  const btn = document.getElementById('startDealBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Starting…';
+
+  try {
+    const resp = await fetch('/api/sessions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ request_id: activeReqId, counterpart_ids: [...selectedCPs] })
+    }).then(r => r.json());
+
+    // Guard: server may return {error:...} instead of an array
+    if (!Array.isArray(resp)) {
+      throw new Error(resp.error || 'Server returned unexpected response from /api/sessions');
+    }
+    const newSessions = resp.filter(s => s.session_id); // drop any malformed entries
+
+    if (!newSessions.length) {
+      throw new Error('No sessions were created. The server may have restarted — please refresh and try again.');
+    }
+
+    newSessions.forEach(s => {
+      sessions[s.session_id] = s;
+      sessionMsgs[s.session_id] = [];
+      sessionInterrupt[s.session_id] = null;
+    });
+    requests[activeReqId].session_ids = newSessions.map(s => s.session_id);
+    requests[activeReqId].status = 'IN_PROGRESS';
+    renderSidebar();
+    showSessionsPanel(requests[activeReqId]);
+    // WS opens per-session when user clicks "Start Deal" in each tab
+  } catch (e) {
+    alert('Error starting sessions: ' + e);
+    btn.disabled = false;
+    btn.textContent = 'Start Deal with My Agents';
+  }
+}
+
+// ── Sessions panel ─────────────────────────────────────────────────────────────
+async function showSessionsPanel(req) {
+  document.getElementById('matchesPanel').style.display = 'none';
+  document.getElementById('sessionsPanel').style.display = 'flex';
+
+  // Load sessions from server if not cached
+  const sessIds = req.session_ids || [];
+  for (const sid of sessIds) {
+    if (!sessions[sid]) {
+      const list = await fetch(`/api/sessions?request_id=${req.request_id}`).then(r => r.json());
+      list.forEach(s => {
+        sessions[s.session_id] = s;
+        if (!sessionMsgs[s.session_id]) sessionMsgs[s.session_id] = [];
+        if (sessionInterrupt[s.session_id] === undefined) sessionInterrupt[s.session_id] = null;
+      });
+      break;
+    }
+  }
+
+  activeSessionId = sessIds[0] || null;
+  renderSessionTabs();
+  if (activeSessionId) renderSessionContent(activeSessionId);
+}
+
+function renderSessionTabs() {
+  const bar  = document.getElementById('sessionTabsBar');
+  const ids  = (requests[activeReqId]?.session_ids || []);
+  bar.innerHTML = ids.map(sid => {
+    const s    = sessions[sid];
+    if (!s) return '';
+    const status = s.status || 'PENDING';
+    const dotCls = status === 'NEGOTIATING' ? 'dot-negotiating'
+                 : status === 'AWAITING_DECISION' ? 'dot-awaiting'
+                 : status === 'CLOSED'     ? 'dot-closed'
+                 : status === 'NO_DEAL'    ? 'dot-nodeal'
+                 : 'dot-pending';
+    const waiting = sessionInterrupt[sid] && sid !== activeSessionId;
+    return `<div class="s-tab ${sid === activeSessionId ? 'active' : ''}" onclick="switchSession('${sid}')">
+      <span class="tab-dot ${dotCls}"></span>
+      ${esc(s.counterpart_name)}
+      ${waiting ? '<span class="tab-waiting-badge">!</span>' : ''}
+    </div>`;
+  }).join('');
+}
+
+function switchSession(sid) {
+  if (activeSessionId === sid) return;
+  activeSessionId = sid;
+  renderSessionTabs();
+  renderSessionContent(sid);
+}
+
+function renderSessionContent(sid) {
+  const s          = sessions[sid];
+  const status     = s?.status || 'PENDING';
+  const isListening = listeningTo.has(sid);
+  const isStarted  = status !== 'PENDING';
+
+  // Info bar — counterpart details
+  document.getElementById('sibName').textContent =
+    `${s?.counterpart_name || '—'}  ·  ${s?.counterpart_city || ''}  ·  ${s?.counterpart_distance_km ?? '?'} km`;
+  document.getElementById('sibMeta').innerHTML =
+    `<span class="status-badge s-${status}">${status.replace(/_/g,' ')}</span>` +
+    `  ·  $${s?.counterpart_min_price ?? '?'}–$${s?.counterpart_max_price ?? '?'}`;
+
+  // Latest offer
+  const msgs = sessionMsgs[sid] || [];
+  const lastOffer = [...msgs].reverse().find(m => m.type === 'msg' && m.offer != null);
+  document.getElementById('sibOffer').textContent =
+    lastOffer ? `Latest offer: $${lastOffer.offer}` : '';
+
+  // Start Deal button
+  const startBtn = document.getElementById('startSessionBtn');
+  if (!isStarted) {
+    startBtn.style.display = '';
+    startBtn.disabled = false;
+    startBtn.textContent = '▶ Start Deal';
+    startBtn.classList.remove('running');
+  } else {
+    startBtn.style.display = 'none';
+  }
+
+  // Dialog panel
+  const dialogPanel = document.getElementById('dialogPanel');
+  if (isStarted) {
+    dialogPanel.style.display = 'flex';
+
+    // Dialog header status text
+    const statusLabels = {
+      NEGOTIATING: 'Negotiation in progress…',
+      AWAITING_DECISION: '⏳ Waiting for your decision',
+      CLOSED: '✅ Deal closed',
+      NO_DEAL: '❌ No deal reached',
+    };
+    document.getElementById('dialogStatusText').textContent =
+      statusLabels[status] || status.replace(/_/g,' ');
+
+    // Listen button
+    const listenBtn = document.getElementById('listenBtn');
+    if (isListening) {
+      listenBtn.textContent = '🔇 Hide Dialog';
+      listenBtn.classList.add('active');
+    } else {
+      listenBtn.textContent = '👂 Listen to Dialog';
+      listenBtn.classList.remove('active');
+    }
+
+    // Stream body
+    const body = document.getElementById('streamBody');
+    if (isListening) {
+      body.style.display = 'flex';
+      body.innerHTML = '';
+      msgs.forEach(msg => _appendMsg(msg, false));
+      body.scrollTop = body.scrollHeight;
+    } else {
+      body.style.display = 'none';
+    }
+  } else {
+    dialogPanel.style.display = 'none';
+  }
+
+  // Interrupt bar (always show when decision needed, regardless of listen)
+  const interrupt = sessionInterrupt[sid];
+  if (interrupt && isStarted) {
+    _showInterruptBar(interrupt.prompt, interrupt.options);
+  } else {
+    _hideInterruptBar();
+  }
+}
+
+async function startSessionDeal() {
+  if (!activeSessionId) return;
+  const s = sessions[activeSessionId];
+  if (!s || s.status !== 'PENDING') return;
+
+  const startBtn = document.getElementById('startSessionBtn');
+  startBtn.disabled = true;
+  startBtn.innerHTML = '<span class="spinner"></span>Connecting…';
+
+  // Verify the session still exists on the server (guards against server restart)
+  try {
+    const check = await fetch(`/api/sessions/${activeSessionId}`).then(r => r.json());
+    if (!check.exists) {
+      startBtn.disabled = false;
+      startBtn.textContent = '▶ Start Deal';
+      _showSessionError('Session expired — the server was restarted. Please go back to your request and click "Start Deal with My Agents" again to create new sessions.');
       return;
     }
-    all.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-    el.innerHTML = all.map(r => `
-      <div class="req-item ${r.request_id === activeId ? 'active' : ''}"
-           onclick="selectRequest('${r.request_id}')">
-        <div class="ri-top">
-          <span class="ri-product">${r.product_name}</span>
-          <span class="ri-role role-${r.role}">${r.role}</span>
-        </div>
-        <div class="ri-meta">
-          $${r.min_price}–$${r.max_price} · ${r.city}
-          &nbsp;&nbsp;<span class="status-badge s-${r.status}">${r.status.replace('_',' ')}</span>
-        </div>
-      </div>`).join('');
+  } catch (e) {
+    startBtn.disabled = false;
+    startBtn.textContent = '▶ Start Deal';
+    _showSessionError('Cannot reach the server. Make sure uvicorn is running on port 8000.');
+    return;
   }
 
-  // ── Select request ─────────────────────────────────────────────────────────
-  function selectRequest(id) {
-    activeId = id;
-    renderSidebar();
-    showStreamView(requests[id]);
+  openWS(activeSessionId);
+
+  s.status = 'NEGOTIATING';
+  document.getElementById('dialogPanel').style.display = 'flex';
+  document.getElementById('dialogStatusText').textContent = 'Negotiation starting…';
+  document.getElementById('listenBtn').textContent = '👂 Listen to Dialog';
+  document.getElementById('listenBtn').classList.remove('active');
+  startBtn.style.display = 'none';
+  renderSessionTabs();
+}
+
+function _showSessionError(msg) {
+  const dialogPanel = document.getElementById('dialogPanel');
+  dialogPanel.style.display = 'flex';
+  document.getElementById('streamBody').style.display = 'flex';
+  document.getElementById('streamBody').innerHTML =
+    `<div class="result-banner fail" style="margin:12px">
+       <div class="rb-status">⚠ Connection Failed</div>
+       <div class="rb-detail">${esc(msg)}</div>
+     </div>`;
+  document.getElementById('dialogStatusText').textContent = 'Could not connect';
+  document.getElementById('listenBtn').style.display = 'none';
+}
+
+async function toggleListen() {
+  if (!activeSessionId) return;
+  const btn = document.getElementById('listenBtn');
+
+  // If audio is playing → stop, keep chat visible
+  if (currentAudio && !currentAudio.paused) {
+    currentAudio.pause(); currentAudio = null;
+    btn.textContent = '👂 Listen to Dialog';
+    btn.classList.remove('active');
+    return;
   }
 
-  function showStreamView(req) {
-    document.getElementById('welcomeView').style.display = 'none';
-    document.getElementById('streamView').classList.add('show');
-    document.getElementById('svTitle').textContent =
-      `${req.product_name} — ${req.role === 'seller' ? 'Selling' : 'Buying'}`;
-    document.getElementById('svMeta').textContent =
-      `$${req.min_price}–$${req.max_price} · ${req.city} · ${req.with_in_kms}km radius`;
+  const wasListening = listeningTo.has(activeSessionId);
+  if (wasListening) {
+    listeningTo.delete(activeSessionId);
+    renderSessionContent(activeSessionId);
+    return;
+  }
 
-    const startBtn = document.getElementById('startBtn');
-    if (['CLOSED','NO_DEAL'].includes(req.status)) {
-      startBtn.disabled = true;
-      startBtn.textContent = req.status === 'CLOSED' ? '✅ Closed' : '❌ No Deal';
-    } else if (['SEARCHING','NEGOTIATING','DEAL_FOUND'].includes(req.status)) {
-      startBtn.disabled = true;
-      startBtn.textContent = '⏳ Running…';
-    } else {
-      startBtn.disabled = false;
-      startBtn.textContent = '🔍 Search Deal';
-      document.getElementById('streamBody').innerHTML = '';
+  // Enable chat view
+  listeningTo.add(activeSessionId);
+  renderSessionContent(activeSessionId);
+
+  // TTS: find the latest AI summary for this session
+  const msgs = sessionMsgs[activeSessionId] || [];
+  const summaryMsg = [...msgs].reverse().find(m => m.type === 'summary');
+  if (summaryMsg?.text) {
+    btn.onclick = toggleListen;
+    await _playTTS(summaryMsg.text, 'summary', btn, () => { btn.onclick = toggleListen; });
+  }
+}
+
+// ── WebSocket ──────────────────────────────────────────────────────────────────
+function openWS(sid) {
+  if (wsMap[sid]) return;
+  const proto = location.protocol === 'https:' ? 'wss' : 'ws';
+  const ws = new WebSocket(`${proto}://${location.host}/ws/${sid}`);
+  wsMap[sid] = ws;
+
+  ws.addEventListener('message', e => handleSessionMsg(sid, JSON.parse(e.data)));
+  ws.addEventListener('close', ev => {
+    delete wsMap[sid];
+    if (ev.code === 1006 && sid === activeSessionId) {
+      // Abnormal close after the session check passed — rare race condition
+      _showSessionError('Connection dropped unexpectedly. The server may have restarted mid-session. Please recreate your sessions.');
     }
-    hideInterruptBar();
-  }
-
-  // ── Form ───────────────────────────────────────────────────────────────────
-  function showForm(role) {
-    document.getElementById('formRole').value = role;
-    document.getElementById('formTitle').textContent =
-      role === 'seller' ? 'New Sell Request' : 'New Buy Request';
-    const btn = document.getElementById('submitBtn');
-    btn.textContent = role === 'seller' ? 'List for Sale' : 'Post Buy Request';
-    btn.className = `btn-submit btn-create-${role}`;
-    document.getElementById('createForm').classList.add('show');
-  }
-
-  function hideForm() {
-    document.getElementById('createForm').classList.remove('show');
-    ['fProduct','fMin','fMax','fCity','fLat','fLon'].forEach(id =>
-      { document.getElementById(id).value = ''; });
-    document.getElementById('fRadius').value = '15';
-  }
-
-  async function submitRequest() {
-    const role    = document.getElementById('formRole').value;
-    const product = document.getElementById('fProduct').value.trim();
-    const min     = parseFloat(document.getElementById('fMin').value);
-    const max     = parseFloat(document.getElementById('fMax').value);
-    const city    = document.getElementById('fCity').value.trim();
-    const lat     = parseFloat(document.getElementById('fLat').value);
-    const lon     = parseFloat(document.getElementById('fLon').value);
-    const radius  = parseFloat(document.getElementById('fRadius').value) || 15;
-
-    if (!product || isNaN(min) || isNaN(max) || !city || isNaN(lat) || isNaN(lon)) {
-      alert('Please fill in all fields.'); return;
-    }
-
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>Creating…';
-
-    try {
-      const res = await fetch('/api/requests', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          user_id: userId, user_name: userName,
-          role, product_name: product,
-          min_price: min, max_price: max,
-          city, lat, lon, with_in_kms: radius
-        })
-      });
-      const req = await res.json();
-      requests[req.request_id] = req;
-      hideForm();
-      renderSidebar();
-      selectRequest(req.request_id);
-    } catch (e) {
-      alert('Failed to create request: ' + e);
-    } finally {
-      btn.disabled = false;
-    }
-  }
-
-  // ── Start agent via WebSocket ──────────────────────────────────────────────
-  function startAgent() {
-    if (!activeId) return;
-    const startBtn = document.getElementById('startBtn');
-    startBtn.disabled = true;
-    startBtn.innerHTML = '<span class="spinner"></span>Connecting…';
-
-    document.getElementById('streamBody').innerHTML = '';
-    hideInterruptBar();
-
-    if (ws) { try { ws.close(); } catch(_){} ws = null; }
-
-    const proto = location.protocol === 'https:' ? 'wss' : 'ws';
-    ws = new WebSocket(`${proto}://${location.host}/ws/${activeId}`);
-
-    ws.addEventListener('open', () => {
-      startBtn.textContent = '⏳ Running…';
-    });
-    ws.addEventListener('message', e => handleMsg(JSON.parse(e.data)));
-    ws.addEventListener('close', () => { ws = null; });
-    ws.addEventListener('error', () => {
-      appendStatus('⚠ Connection error. Please try again.');
-      startBtn.disabled = false;
-      startBtn.textContent = '🔍 Search Deal';
-    });
-  }
-
-  // ── Message handler ────────────────────────────────────────────────────────
-  function handleMsg(msg) {
-    const req = requests[activeId];
-    switch (msg.type) {
-
-      case 'status_update':
-        if (req) { req.status = msg.status; renderSidebar(); }
-        if (['CLOSED','NO_DEAL'].includes(msg.status)) {
-          const b = document.getElementById('startBtn');
-          b.disabled = true;
-          b.textContent = msg.status === 'CLOSED' ? '✅ Closed' : '❌ No Deal';
-        }
-        break;
-
-      case 'stream':       appendStatus(msg.text);                     break;
-      case 'match_found':  appendMatchCard(msg);                        break;
-      case 'negotiation_start':
-        appendNegHeader(`Negotiating with ${msg.with} (${msg.city} · ${msg.distance} km)`);
-        break;
-      case 'msg':          appendBubble(msg.role, msg.content, msg.offer); break;
-      case 'negotiation_end': appendNegEnd(msg.with, msg.result, msg.best_offer); break;
-      case 'summary':      appendSummary(msg.text);                     break;
-      case 'interrupt':    showInterruptBar(msg.prompt, msg.options);   break;
-      case 'result':       hideInterruptBar(); appendResult(msg);        break;
-      case 'done':         hideInterruptBar();                           break;
-      case 'error':        appendStatus('⚠ ' + msg.text); hideInterruptBar(); break;
-    }
-    scrollBottom();
-  }
-
-  // ── DOM helpers ────────────────────────────────────────────────────────────
-  const getBody = () => document.getElementById('streamBody');
-  const scrollBottom = () => { const b = getBody(); b.scrollTop = b.scrollHeight; };
-
-  function appendStatus(text) {
-    const el = document.createElement('div');
-    el.className = 'status-line';
-    el.textContent = text;
-    getBody().appendChild(el);
-  }
-
-  function appendMatchCard(msg) {
-    const el = document.createElement('div');
-    el.className = 'match-card';
-    el.innerHTML = `
-      <div class="mc-name">🎯 ${esc(msg.name)}</div>
-      <div class="mc-meta">
-        <span>${esc(msg.city)}</span>&ensp;·&ensp;
-        <span>${msg.distance} km</span>&ensp;·&ensp;
-        <span>${esc(msg.product)}</span>&ensp;·&ensp;
-        <span>$${msg.lo}–$${msg.hi}</span>
-      </div>`;
-    getBody().appendChild(el);
-  }
-
-  function appendNegHeader(text) {
-    const el = document.createElement('div');
-    el.className = 'neg-header';
-    el.textContent = text;
-    getBody().appendChild(el);
-  }
-
-  function appendBubble(role, text, offer) {
-    const avatars = { seller_robot: '🤖', buyer_robot: '🛒', human: '👤' };
-    const labels  = { seller_robot: 'Seller Agent', buyer_robot: 'Buyer Agent', human: 'You' };
-    const el = document.createElement('div');
-    el.className = `bubble ${role}`;
-    el.innerHTML = `
-      <div class="bubble-avatar">${avatars[role] || '?'}</div>
-      <div>
-        <div class="bubble-role">${labels[role] || role}</div>
-        <div class="bubble-text">${esc(text)}${offer != null ? `<br><span class="bubble-offer">Offer: $${offer}</span>` : ''}</div>
-      </div>`;
-    getBody().appendChild(el);
-  }
-
-  function appendNegEnd(withName, result, offer) {
-    const cls = result === 'agreed' ? 'result-agreed' : result === 'drop_off' ? 'result-drop_off' : 'result-ongoing';
-    const el = document.createElement('div');
-    el.className = 'neg-end-card';
-    el.innerHTML = `
-      <span class="ne-with">${esc(withName)}</span>
-      <span class="ne-result ${cls}">${result.toUpperCase()}${offer != null ? ` — Best $${offer}` : ''}</span>`;
-    getBody().appendChild(el);
-  }
-
-  function appendSummary(text) {
-    const el = document.createElement('div');
-    el.className = 'summary-card';
-    el.innerHTML = `<div class="sc-title">🧠 AI Summary</div>${esc(text)}`;
-    getBody().appendChild(el);
-  }
-
-  function appendResult(msg) {
-    const el = document.createElement('div');
-    if (msg.status === 'DEAL CLOSED') {
-      el.className = 'result-banner success';
-      el.innerHTML = `<div class="rb-status">🎉 Deal Closed!</div><div class="rb-detail">With ${esc(msg.with)} at $${msg.price}</div>`;
-    } else {
-      el.className = 'result-banner fail';
-      el.innerHTML = `<div class="rb-status">No Deal</div><div class="rb-detail">You passed on all options.</div>`;
-    }
-    getBody().appendChild(el);
-  }
-
-  // ── Interrupt bar ──────────────────────────────────────────────────────────
-  function showInterruptBar(prompt, options) {
-    document.getElementById('ibPrompt').textContent = prompt;
-    document.getElementById('ibOptions').innerHTML = options.map((o, i) =>
-      `<div class="ib-option" onclick="sendResumeValue('${i+1}')">${i+1}. ${esc(o)}</div>`
-    ).join('');
-    document.getElementById('interruptBar').classList.add('show');
-    document.getElementById('ibInput').focus();
-  }
-
-  function hideInterruptBar() {
-    document.getElementById('interruptBar').classList.remove('show');
-    document.getElementById('ibInput').value = '';
-    document.getElementById('ibOptions').innerHTML = '';
-  }
-
-  function sendResume() {
-    const val = document.getElementById('ibInput').value.trim();
-    if (val) sendResumeValue(val);
-  }
-
-  function sendResumeValue(value) {
-    if (!ws) return;
-    ws.send(JSON.stringify({ type: 'resume', value }));
-    appendBubble('human', `Selected: ${value}`, null);
-    hideInterruptBar();
-    scrollBottom();
-  }
-
-  document.getElementById('ibInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') sendResume();
   });
+  ws.addEventListener('error', () => {
+    // onerror fires before onclose — onclose will handle the message
+  });
+}
 
-  // ── Util ───────────────────────────────────────────────────────────────────
-  function esc(s) {
-    return String(s ?? '')
-      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-      .replace(/"/g,'&quot;').replace(/\n/g,'<br>');
+function handleSessionMsg(sid, msg) {
+  sessionMsgs[sid] = sessionMsgs[sid] || [];
+
+  if (msg.type === 'status_update') {
+    if (sessions[sid]) sessions[sid].status = msg.status;
+    renderSessionTabs();
+    // Refresh info bar badge for active session
+    if (sid === activeSessionId) {
+      const statusEl = document.getElementById('sibMeta');
+      const s = sessions[sid];
+      if (statusEl && s) {
+        statusEl.innerHTML = `<span class="status-badge s-${msg.status}">${msg.status.replace(/_/g,' ')}</span>` +
+          `  ·  $${s.counterpart_min_price ?? '?'}–$${s.counterpart_max_price ?? '?'}`;
+      }
+    }
+    return;
   }
+
+  if (msg.type === 'interrupt') {
+    sessionInterrupt[sid] = { prompt: msg.prompt, options: msg.options };
+    renderSessionTabs(); // show ! badge
+    if (sid === activeSessionId) _showInterruptBar(msg.prompt, msg.options);
+    return;
+  }
+
+  if (msg.type === 'done') return;
+
+  sessionMsgs[sid].push(msg);
+
+  // Update latest-offer display in info bar whenever active session gets an offer
+  if (sid === activeSessionId && msg.type === 'msg' && msg.offer != null) {
+    document.getElementById('sibOffer').textContent = `Latest offer: $${msg.offer}`;
+  }
+
+  // Append live to chat stream only if user is listening to this session
+  if (sid === activeSessionId && listeningTo.has(sid)) {
+    _appendMsg(msg, true);
+  }
+
+  // If this session's result/summary arrives, update dialog status text
+  if (sid === activeSessionId) {
+    const statusLabels = {
+      NEGOTIATING: 'Negotiation in progress…',
+      AWAITING_DECISION: '⏳ Waiting for your decision',
+      CLOSED: '✅ Deal closed',
+      NO_DEAL: '❌ No deal reached',
+    };
+    const statusEl = document.getElementById('dialogStatusText');
+    if (statusEl && sessions[sid]) {
+      statusEl.textContent = statusLabels[sessions[sid].status] || '';
+    }
+  }
+}
+
+// ── Interrupt ──────────────────────────────────────────────────────────────────
+function _showInterruptBar(prompt, options) {
+  document.getElementById('ibPrompt').textContent = prompt;
+  document.getElementById('ibOptions').innerHTML = options.map((o, i) =>
+    `<div class="ib-option" onclick="sendResumeValue('${i+1}')">${i+1}. ${esc(o)}</div>`
+  ).join('');
+  document.getElementById('interruptBar').classList.add('show');
+  document.getElementById('ibInput').focus();
+}
+
+function _hideInterruptBar() {
+  document.getElementById('interruptBar').classList.remove('show');
+  document.getElementById('ibInput').value = '';
+  document.getElementById('ibOptions').innerHTML = '';
+}
+
+function sendResume() {
+  const val = document.getElementById('ibInput').value.trim();
+  if (val) sendResumeValue(val);
+}
+
+function sendResumeValue(value) {
+  if (!activeSessionId) return;
+  const ws = wsMap[activeSessionId];
+  if (ws && ws.readyState === WebSocket.OPEN) {
+    ws.send(JSON.stringify({ type: 'resume', value }));
+  }
+  sessionInterrupt[activeSessionId] = null;
+  _hideInterruptBar();
+  renderSessionTabs();
+}
+
+document.getElementById('ibInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') sendResume();
+});
+
+// ── Stream DOM helpers ─────────────────────────────────────────────────────────
+function _appendMsg(msg, scroll) {
+  switch (msg.type) {
+    case 'stream':           appendStatus(msg.text); break;
+    case 'negotiation_start':
+      appendNegHeader(`Negotiating with ${msg.with} (${msg.city} · ${msg.distance} km)`); break;
+    case 'msg':              appendBubble(msg.role, msg.content, msg.offer); break;
+    case 'negotiation_end':  appendNegEnd(msg.with, msg.result, msg.best_offer); break;
+    case 'summary':          appendSummary(msg.text); break;
+    case 'result':           appendResult(msg); break;
+    case 'error':            appendStatus('⚠ ' + msg.text); break;
+  }
+  if (scroll) {
+    const b = document.getElementById('streamBody');
+    b.scrollTop = b.scrollHeight;
+  }
+}
+
+function appendStatus(text) {
+  const el = document.createElement('div');
+  el.className = 'status-line';
+  el.textContent = text;
+  document.getElementById('streamBody').appendChild(el);
+}
+
+function appendNegHeader(text) {
+  const el = document.createElement('div');
+  el.className = 'neg-header';
+  el.textContent = text;
+  document.getElementById('streamBody').appendChild(el);
+}
+
+function appendBubble(role, text, offer) {
+  const avatars = { seller_robot: '🤖', buyer_robot: '🛒' };
+  const labels  = { seller_robot: 'Seller Agent', buyer_robot: 'Buyer Agent' };
+  const el = document.createElement('div');
+  el.className = `bubble ${role}`;
+  el.innerHTML = `
+    <div class="bubble-avatar">${avatars[role] || '?'}</div>
+    <div>
+      <div class="bubble-role">${labels[role] || role}</div>
+      <div class="bubble-text">${esc(text)}${offer != null ? `<br><span class="bubble-offer">Offer: $${offer}</span>` : ''}</div>
+    </div>`;
+  document.getElementById('streamBody').appendChild(el);
+}
+
+function appendNegEnd(withName, result, offer) {
+  const cls = result === 'agreed' ? 'result-agreed' : result === 'drop_off' ? 'result-drop_off' : 'result-ongoing';
+  const el = document.createElement('div');
+  el.className = 'neg-end-card';
+  el.innerHTML = `
+    <span class="ne-with">${esc(withName)}</span>
+    <span class="ne-result ${cls}">${result.toUpperCase()}${offer != null ? ` — Best $${offer}` : ''}</span>`;
+  document.getElementById('streamBody').appendChild(el);
+}
+
+function appendSummary(text) {
+  const el = document.createElement('div');
+  el.className = 'summary-card';
+  el.innerHTML = `<div class="sc-title">🧠 AI Summary</div>${esc(text)}`;
+  document.getElementById('streamBody').appendChild(el);
+}
+
+function appendResult(msg) {
+  const el = document.createElement('div');
+  if (msg.status === 'DEAL CLOSED') {
+    el.className = 'result-banner success';
+    el.innerHTML = `<div class="rb-status">🎉 Deal Closed!</div><div class="rb-detail">With ${esc(msg.with)} at $${msg.price}</div>`;
+  } else {
+    el.className = 'result-banner fail';
+    el.innerHTML = `<div class="rb-status">No Deal</div><div class="rb-detail">You passed on this deal.</div>`;
+  }
+  document.getElementById('streamBody').appendChild(el);
+}
 </script>
 </body>
 </html>

@@ -18,7 +18,7 @@ from sell_buy_agents.seller_buyer_pool import find_sellers_for_buyer
 
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.7)
 
-MAX_ROUNDS = 5
+MAX_ROUNDS = 10
 
 
 # ---------------------------------------------------------------------------
